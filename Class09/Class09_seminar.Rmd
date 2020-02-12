@@ -14,17 +14,13 @@ km<-kmeans(x, centers=2, nstart=20)
 plot(x,col=km$cluster)
 points(km$centers, col="blue", pch=15, cex=3)
 
-```
 
-```{r}
 hc<- hclust( dist(x))
 hc
 
 plot(hc)
 
-```
 
-```{r}
 abline(h=6, col="red", lty=2)
 cutree(hc, h=6)
 ```
