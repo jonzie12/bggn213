@@ -1,7 +1,7 @@
 # bggn213
 bggn213_winter2020
 
-This is my classwork from bggn-213 @ ucsd. 
+This is my classwork from bggn-213 W2020 @ ucsd. 
 
 # Pretty fly  ¯\_(ツ)_/¯
 
