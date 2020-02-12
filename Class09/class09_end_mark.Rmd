@@ -2,7 +2,7 @@
 title: "Class09_hands_on"
 author: "Brandon Jones"
 date: "2/5/2020"
-output: html_document
+output: github_document
 ---
 #Principal Component Analysis (PCA)
 The main function in base R for PCA is called 'prcomp()'. Here we will use PCA to examine the funny food that folks eat in the uk and N. Ireland.
