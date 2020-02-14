@@ -41,15 +41,15 @@ Q: How many protein chains are in this structure?
 ```{r}
 library(bio3d)
 PDB_1hsg<- read.pdb("1hsg")
-pdb
+
 
 ```
 
 ## Based on PDB output, 198 Residues (Q1), HOH and MK1 are non-protein residues (Q2), and there are 2 chains (Q3)
 
 ```{r}
-attributes(pdb)
-head(pdb$atom)
+attributes(PDB_Stats)
+head(PDB_Stats$atom)
 ```
 
 ```{r}
@@ -121,14 +121,6 @@ hc.rd <- hclust(dist(rd))
 grps.rd <- cutree(hc.rd, k=3)
 
 plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
-```
-
-```{r}
-devtools::install_bitbucket("Grantlab/bio3d-view")
-```
-
-```{r}
-install.packages("rgl")
 ```
 
 ```{r}
