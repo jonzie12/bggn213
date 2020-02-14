@@ -8,3 +8,160 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ##PDB Statistics
+
+Download a CSV file from the PDB site (accessible from “Analyze” > “PDB Statistics” > “by Experimental Method and Molecular Type”. Move this CSV file into your RStudio project and use it to answer the following questions:
+
+Q: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy.
+
+Q: What proportion of structures in the PDB are protein?
+
+Q: Type HIV in the PDB website search box on the home page and determine how many HIV-1 protease structures are in the current PDB?
+
+
+```{r}
+PDB_Stats<-read.csv("Data Export Summary.csv", row.names = 1)
+total_structures<-sum(PDB_Stats[,"Total"])
+print(total_structures)
+Q1<-round(100*PDB_Stats["X-Ray","Total"]/total_structures,2)
+print(Q1)
+
+Q2<-round(100*sum(PDB_Stats[,"Proteins"])/total_structures,2)
+print(Q2)
+
+Q3<-round(100*141/total_structures,2)
+```
+
+Second chunk of Q's
+Q: How many amino acid residues are there in this pdb object? 
+
+Q: Name one of the two non-protein residues? 
+
+Q: How many protein chains are in this structure? 
+
+```{r}
+library(bio3d)
+PDB_1hsg<- read.pdb("1hsg")
+pdb
+
+```
+
+## Based on PDB output, 198 Residues (Q1), HOH and MK1 are non-protein residues (Q2), and there are 2 chains (Q3)
+
+```{r}
+attributes(pdb)
+head(pdb$atom)
+```
+
+```{r}
+library(bio3d)
+aa <- get.seq("1ake_A")
+aa
+
+##Q1 How many amino acids = 214
+```
+
+
+```{r}
+# Blast or hmmer search 
+b <- blast.pdb(aa)
+```
+
+```{r}
+# Plot a summary of search results
+hits <- plot(b)
+# List out some 'top hits'
+head(hits$pdb.id)
+
+##list as described on the site
+hits
+```
+
+
+```{r}
+# Download releated PDB files
+files <- get.pdb(hits$pdb.id, path="pdbs", split=TRUE, gzip=TRUE)
+```
+
+
+```{r}
+# Align releated PDBs
+pdbs <- pdbaln(files, fit = TRUE, exefile="msa")
+```
+
+```{r}
+# Vector containing PDB codes for figure axis
+ids <- basename.pdb(pdbs$id)
+
+# Draw schematic alignment
+plot(pdbs, labels=ids)
+```
+
+```{r}
+library(XML)
+library(RCurl)
+library(bio3d)
+anno <- pdb.annotate(ids)
+unique(anno$source)
+anno
+```
+
+# On to PCA stuff
+
+```{r}
+
+# Perform PCA
+pc.xray <- pca(pdbs)
+plot(pc.xray)
+
+# Calculate RMSD
+rd <- rmsd(pdbs)
+
+# Structure-based clustering
+hc.rd <- hclust(dist(rd))
+grps.rd <- cutree(hc.rd, k=3)
+
+plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+```
+
+```{r}
+devtools::install_bitbucket("Grantlab/bio3d-view")
+```
+
+```{r}
+install.packages("rgl")
+```
+
+```{r}
+library(bio3d.view)
+# Visualize first principal component
+pc1 <- mktrj(pc.xray, pc=1, file="pc_1.pdb")
+
+view(pc1)
+
+
+view(pc1, col=vec2color( rmsf(pc1) ))
+```
+
+```{r}
+#Plotting results with ggplot2
+library(ggplot2)
+library(ggrepel)
+
+df <- data.frame(x=pc.xray$z[,1], y=pc.xray$z[,2])
+col <- as.factor(grps.rd)
+
+p <- ggplot(df, aes(x, y)) +
+ geom_point(aes(col=col), size=2) +
+ xlab("PC1") +
+ ylab("PC2") +
+ scale_color_discrete(name="Clusters") +
+ geom_text_repel(aes(label=ids))
+p
+
+# NMA of all structures
+modes <- nma(pdbs)
+```
+
+```{r}
+plot(modes, pdbs, col=grps.rd)
+```
