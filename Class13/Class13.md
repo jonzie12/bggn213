@@ -73,3 +73,30 @@ rmsd(atom.select(ori,"noh",value=TRUE),atom.select(res,"noh",value=TRUE))
 
     ##  [1]  0.506  4.310 11.022 10.359  4.781 10.956 10.918  3.704 10.905 10.994
     ## [11] 10.432 10.328 10.846 11.208  8.324  8.935  8.272  8.870
+
+\#\#Normal Mode Analysis of protein structure
+
+``` r
+library(bio3d)
+pdb <- read.pdb("1HEL")
+```
+
+    ##   Note: Accessing on-line PDB file
+
+``` r
+modes <- nma(pdb)
+```
+
+    ##  Building Hessian...     Done in 0.02 seconds.
+    ##  Diagonalizing Hessian...    Done in 0.08 seconds.
+
+``` r
+plot(modes, sse=pdb)
+```
+
+![](Class13_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+# Visualize NMA results
+mktrj(modes, mode=7, file="nma_7.pdb")
+```

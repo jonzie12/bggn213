@@ -46,5 +46,13 @@ ori <- read.pdb("ligand.pdbqt")
 rmsd(ori, res)
 rmsd(atom.select(ori,"noh",value=TRUE),atom.select(res,"noh",value=TRUE))
 ```
-
+##Normal Mode Analysis of protein structure
+```{r}
+library(bio3d)
+pdb <- read.pdb("1HEL")
+modes <- nma(pdb)
+plot(modes, sse=pdb)
+# Visualize NMA results
+mktrj(modes, mode=7, file="nma_7.pdb")
+```
 
