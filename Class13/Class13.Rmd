@@ -32,3 +32,19 @@ write.pdb(prot, file="1hsg_protein.pdb")
 write.pdb(lig, file="1hsg_ligand.pdb")
 ```
 
+
+## Loading in and inspecting Docking Results
+```{r}
+library(bio3d)
+res <- read.pdb("all.pdbqt", multi=TRUE)
+write.pdb(res, "results.pdb")
+```
+
+```{r}
+res <- read.pdb("all.pdbqt", multi=TRUE)
+ori <- read.pdb("ligand.pdbqt")
+rmsd(ori, res)
+rmsd(atom.select(ori,"noh",value=TRUE),atom.select(res,"noh",value=TRUE))
+```
+
+
