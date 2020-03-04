@@ -47,7 +47,10 @@ Q3. What is the overall death rate?
 
 ``` r
 A3<-100*A2/A1
+print(A3)
 ```
+
+    ## [1] 2.190899
 
 Q4. What is the death rate in China?
 
