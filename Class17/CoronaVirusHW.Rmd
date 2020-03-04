@@ -1,0 +1,72 @@
+---
+title: "Analysis of the 2019-nCov Outbreak"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Coronavirus
+
+Here we analyze infection data for the 2019 novel Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data is pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus repository.
+
+A CSV file is available here https://github.com/RamiKrispin/coronavirus-csv
+
+```{r}
+virus <- read.csv("coronavirus_dataset.csv")
+
+tail(virus)
+```
+
+Q1. How many total infected cases are there around the world?
+
+```{r}
+A1<-sum(virus$cases)
+print(A1)
+```
+Q2. How many deaths linked to infected cases have there been
+
+```{r}
+A2<-sum(virus$cases[virus$type=="death"])
+print(A2)
+```
+Q3. What is the overall death rate?
+
+```{r}
+A3<-100*A2/A1
+```
+
+Q4. What is the death rate in China?
+
+```{r}
+CasesinChina<- sum(virus$cases[virus$Country.Region=="Mainland China"])
+DeathsinChina<- sum(virus$cases[virus$Country.Region=="Mainland China"&virus$type=="death"])
+A4<-100*DeathsinChina/CasesinChina
+A4
+```
+Q5. What is the death rate in Italy, Iran, and the US?
+
+
+
+```{r}
+CasesinItaly<- sum(virus$cases[virus$Country.Region=="Italy"])
+DeathsinItaly<- sum(virus$cases[virus$Country.Region=="Italy"&virus$type=="death"])
+A5.Italy<-100*DeathsinItaly/CasesinItaly
+
+
+CasesinIran<- sum(virus$cases[virus$Country.Region=="Iran"])
+DeathsinIran<- sum(virus$cases[virus$Country.Region=="Iran"&virus$type=="death"])
+A5.Iran<-100*DeathsinIran/CasesinIran
+
+
+CasesinUS<- sum(virus$cases[virus$Country.Region=="US"])
+DeathsinUS<- sum(virus$cases[virus$Country.Region=="US"&virus$type=="death"])
+A5.US<-100*DeathsinUS/CasesinUS
+
+
+print(A5.Iran)
+print(A5.Italy)
+print(A5.US)
+```
+
