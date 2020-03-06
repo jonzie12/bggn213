@@ -1,0 +1,70 @@
+---
+title: "HW20200131"
+author: "Brandon Jones"
+date: "1/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## HW for 01/31/2020
+
+```{r}
+
+
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+
+
+##Improve this code by assigning it to a function
+
+PDB_Plot<- function(x) { ## "x" will be the desired PDB File i.e. "4AKE"
+  PDB_List<-read.pdb(x) ##this reads in the given pdb as a list and assigns it to object "PDB_List" 
+  PDB_ChainA<- trim.pdb(PDB_List, chain="A", elety="CA") ## this trims the list that "read.pdb" imports to just the A chain, alpha carbons
+  PDB_Listsub <- PDB_ChainA$atom$b ## This takes the trimmed PDB_list, "PDB_ChainA" and from it, assigns PDB_Listsub the vector "b" found inside the data_frame "atom"
+  plotb3(PDB_Listsub,sse=PDB_ChainA, typ= "l", ylab= "Bfactor")
+}  ## plotb3 plots the PDB_Listsub B-Factor values and utilizes the PDB_ChainA to draw secondary structures on the plot. The data is plotted as a line graph and the Y axis is labeled Bfactor. This is the output of the function, a plot of the Bfactor values of each residue of the "A" chain of the given protein structure. (along with somea annotation of secondary structure)
+
+
+
+##The following is included to take a look at the individual steps of the function.
+test<-read.pdb("4AKE")
+testtrim<-trim.pdb(test, chain="A", elety="CA")
+testsub<-testtrim$atom$b
+testsub
+
+##running the new function outputs the bFactor plot for a given PDB entry
+PDB_Plot("4AKE")
+PDB_Plot("1AKE")
+PDB_Plot("1E4Y")
+
+```
+
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
