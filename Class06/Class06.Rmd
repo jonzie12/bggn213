@@ -1,0 +1,177 @@
+---
+title: "Class06"
+author: "Brandon Jones"
+date: "1/24/2020"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This is a level 2 heading
+
+This is **regular** old *text*
+
+
+and a list of stuff
+```{r}
+plot(1:5, col="blue", type="o")
+```
+
+- a
+- b
+- b
+
+let's insert a code chunk with the shortcut `option-cmd-i`:
+
+
+```{r}
+
+x<-c(1:10)
+x
+mean(x)
+```
+
+##More on reading input files
+
+We will use the read.table
+
+```{r}
+
+x1<-read.csv("test1.txt")
+x2<-read.table("test2.txt", sep="$", header = TRUE)
+x3<-read.table("test3.txt", header=FALSE)
+
+
+```
+
+## Our First Function
+
+This is an example function named add with input `x` and `y`
+
+```{r}
+add<-function(x, y=1) {
+  ##gona add x to y becuz thats what we do
+  x+y
+}
+```
+
+let's try using it 
+
+```{r}
+add(6,4)
+
+```
+
+## Making a function and stuff
+
+```{r}
+
+rescale<- function(x) {
+  rng<- range(x)
+  (x-rng[1])/(rng[2]-rng[1])
+}
+
+rescale( c(1:10))
+
+rescale( c(1:10,NA))
+
+x<- c(1:10, NA)
+rng<- range(x, na.rm=TRUE)
+rng 
+
+rescale2<- function(x) {
+  rng<- range(x, na.rm=TRUE)
+  (x-rng[1])/(rng[2]-rng[1])
+}
+
+rescale2(x)
+```
+
+
+## some more function
+
+```{r}
+rescale3 <- function(x, na.rm=TRUE, plot=FALSE) {
+ if(na.rm) {
+ rng <-range(x, na.rm=TRUE)
+ } else {
+ rng <-range(x)
+ }
+ print("Hello")
+ answer <- (x - rng[1]) / (rng[2] - rng[1])
+ print(answer)
+ print("is it me you are looking for?")
+ if(plot) {
+   print("Please don't sing again")
+ plot(answer, typ="b", lwd=4)
+ }
+ print("I can see it in ...")
+}
+
+
+
+rescale3(x,plot=TRUE)
+```
+
+
+
+
+## This is a level 3 MArkdwon
+```{r}
+
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor") 
+
+plotb3(s1.b, sse=s1.chainA, typ="l", col="black", ylab="Bfactor")
+points(s2.b, col="blue",typ="l")
+points(s3.b, col="red",typ="l")
+```
+
+
+```{r}
+s1 <- read.pdb ("4AKE")
+s1
+class(s1)
+
+```
+
+```{r}
+str(s1)
+
+```
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
