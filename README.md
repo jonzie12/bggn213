@@ -6,6 +6,8 @@ This is my classwork from bggn-213 during winter quarter 2020.
 
 This is the [Class Webpage](https://bioboot.github.io/bggn213_W20/)
 
+R-Code associated with each lecture is linked below.
+
 -Class 05: [Data Visualization and grahpics in R](https://github.com/jonzie12/bggn213/tree/master/class_05) <br />
 -Class 06: [R Functions](https://github.com/jonzie12/bggn213/tree/master/class_06) <br />
 -Class 09: [Principle Component Analysis](https://github.com/jonzie12/bggn213/tree/master/Class09) <br />
