@@ -9,8 +9,8 @@ Apparently UCSD spent a lot of money trying to get people to call it UC San Dieg
 
 This is the [class webpage](https://bioboot.github.io/bggn213_W20/)
 
--Class 05:[Data Visualization and grahpics in R](https://github.com/jonzie12/bggn213/tree/master/class_05)
--Class 06:[R Functions](https://github.com/jonzie12/bggn213/tree/master/class_06)
+-Class 05:[Data Visualization and grahpics in R](https://github.com/jonzie12/bggn213/tree/master/class_05) <br />
+-Class 06:[R Functions](https://github.com/jonzie12/bggn213/tree/master/class_06) <br />
 -Class 09:[Principle Component Analysis](https://github.com/jonzie12/bggn213/tree/master/Class09)
 -Class 10:[Unsupervised learning mini-project](https://github.com/jonzie12/bggn213/tree/master/Class10)
 -Class 12:[Structural Bioinformatics](https://github.com/jonzie12/bggn213/tree/master/Class12)
